@@ -1,0 +1,63 @@
+import random
+
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self.knowledge = 0
+        self.energy = 100
+        self.money = 50
+        self.happiness = 100
+
+    def study(self):
+        if self.energy > 10:
+            self.knowledge += 5
+            self.energy -= 10
+            print(f"{self.name} вчиться. Знання: {self.knowledge}, Енергія: {self.energy}")
+        else:
+            print(f"{self.name} занадто втомлений, щоб вчитися.")
+
+    def work(self):
+        if self.energy > 15:
+            self.money += 20
+            self.energy -= 15
+            print(f"{self.name} працює. Гроші: {self.money}, Енергія: {self.energy}")
+        else:
+            print(f"{self.name} занадто втомлений, щоб працювати.")
+
+    def rest(self):
+        self.energy += 20
+        self.happiness += 5
+        self.money -= 5
+        print(f"{self.name} відпочиває. Енергія: {self.energy}, Щастя: {self.happiness}, Гроші: {self.money}")
+
+    def check_status(self):
+        if self.money < 10:
+            print(f"{self.name} має мало грошей. Треба йти працювати.")
+            self.work()
+        elif self.knowledge < 30:
+            print(f"{self.name} потребує більше знань. Починає вчитися.")
+            self.study()
+        elif self.happiness < 50:
+            print(f"{self.name} засмучений. Потрібен відпочинок.")
+            self.rest()
+        else:
+            print(f"{self.name} у чудовій формі!")
+
+    def live_day(self):
+        action = random.choice(["study", "work", "rest"])
+        if action == "study":
+            self.study()
+        elif action == "work":
+            self.work()
+        elif action == "rest":
+            self.rest()
+
+    def live_year(self):
+        for day in range(1, 366):
+            print(f"День {day}:")
+            self.check_status()
+            self.live_day()
+
+# Приклад використання
+student = Student("Олег")
+student.live_year()
